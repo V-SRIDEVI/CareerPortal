@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Departments</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    select, input[type="text"], button {
+      padding: 10px;
+      margin: 10px 5px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      background-color: #f9f9f9;
+      position: relative;
+    }
+    .science { background-color: #e0f7fa; }
+    .commerce { background-color: #fff3e0; }
+    .arts { background-color: #f3e5f5; }
+    .card h3 {
+      margin: 0 0 5px;
+    }
+    .like-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+    }
+    .tooltip {
+      border-bottom: 1px dotted black;
+      cursor: help;
+    }
+    iframe {
+      margin-top: 30px;
+      width: 100%;
+      height: 400px;
+    }
+    .back-home {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 20px;
+      background-color: #0d6efd;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .back-home:hover {
+      background-color: #084298;
+    }
+  </style>
+</head>
+<body>
+  <h2>Department Choices After 12th</h2>
+  <a href="index.html" class="back-home">🔙 Back to Home</a>
+
+  <!-- 🔍 Search and Filters -->
+  <input type="text" id="searchBox" placeholder="Search department..." onkeyup="searchDepartments()" list="deptSuggestions" />
+  <datalist id="deptSuggestions"></datalist>
+  <select id="streamSelect" onchange="showDepartments()">
+    <option value="">Select Stream</option>
+    <option value="science">Science</option>
+    <option value="commerce">Commerce</option>
+    <option value="arts">Arts</option>
+  </select>
+  <select id="careerType" onchange="filterByCareerType()">
+    <option value="">Filter by Career Type</option>
+    <option value="technical">Technical</option>
+    <option value="creative">Creative</option>
+    <option value="service">Service</option>
+  </select>
+  <select id="subjectGroup" onchange="filterBySubjectGroup()">
+    <option value="">Filter by Subject Group</option>
+    <option value="PCM">PCM (Physics, Chemistry, Maths)</option>
+    <option value="PCB">PCB (Physics, Chemistry, Biology)</option>
+    <option value="Commerce">Commerce</option>
+  </select>
+  <button onclick="downloadDepartments()">📄 Download</button>
+  <button onclick="printDepartments()">🖨️ Print</button>
+
+  <div id="deptOutput"></div>
+  <div id="careerTip" style="margin:15px 0; font-weight:bold; color:#0d6efd;"></div>
+
+  <iframe src="https://www.youtube.com/embed/BBYGqDvNapg?si=5Jz2xQgYYzA6Rvi-" title="Career Guidance Video" allowfullscreen></iframe>
+
+  <script>
+    const departments = {
+      science: [
+        { name: "Engineering", info: "Courses in Computer Science, Mechanical, Civil, and ECE. Requires JEE or TNEA.", type: "technical", salary: "₹6–15 LPA", group: "PCM" },
+        { name: "Medicine", info: "Includes MBBS, BDS, BHMS, BPT. Requires NEET.", type: "service", salary: "₹8–20 LPA", group: "PCB" },
+        { name: "B.Sc Programs", info: "Courses in Physics, Chemistry, Maths, Computer Science, etc.", type: "technical", salary: "₹3–7 LPA" },
+        { name: "Biotechnology", info: "Study of biology with technology applications.", type: "technical", salary: "₹4–10 LPA" },
+        { name: "Forensic Science", info: "Investigation and criminal science applications.", type: "service", salary: "₹5–9 LPA" },
+        { name: "Agriculture Science", info: "Focus on crop, soil and farming innovations.", type: "technical", salary: "₹4–8 LPA" },
+        { name: "Nursing", info: "Patient care and clinical support, requires NEET or state exams.", type: "service", salary: "₹3–7 LPA", group: "PCB" },
+        { name: "Environmental Science", info: "Study of ecology and sustainability issues.", type: "technical", salary: "₹3–6 LPA" },
+        { name: "Pharmacy", info: "B.Pharm and related fields, drug development.", type: "technical", salary: "₹4–9 LPA" },
+        { name: "Data Science (B.Sc)", info: "Focus on analytics, AI, machine learning.", type: "technical", salary: "₹6–15 LPA" },
+        { name: "Food Technology", info: "Study of food processing, preservation, and safety.", type: "technical", salary: "₹4–9 LPA" },
+        { name: "Microbiology", info: "Study of microorganisms and their impact.", type: "technical", salary: "₹4–8 LPA" },
+        { name: "Zoology", info: "Study of animal biology and research.", type: "technical", salary: "₹3–7 LPA" },
+        { name: "Genetics", info: "Study of genes, heredity, and genetic engineering.", type: "technical", salary: "₹5–10 LPA" },
+        { name: "Physiotherapy", info: "Physical therapy and rehabilitation science.", type: "service", salary: "₹3–7 LPA" },
+        { name: "Radiology", info: "Medical imaging and diagnostics.", type: "service", salary: "₹5–12 LPA" },
+        { name: "Geology", info: "Study of earth, rocks, and minerals.", type: "technical", salary: "₹4–8 LPA" },
+        { name: "Marine Biology", info: "Study of ocean life and ecosystems.", type: "technical", salary: "₹4–9 LPA" },
+        { name: "Aviation", info: "Pilot training, aircraft maintenance, and aviation management.", type: "technical", salary: "₹7–20 LPA" },
+        { name: "Nutrition & Dietetics", info: "Food science, nutrition planning, and health.", type: "service", salary: "₹3–7 LPA" },
+        { name: "Paramedical Courses", info: "Lab technician, radiology, OT technician, etc.", type: "service", salary: "₹3–8 LPA" },
+        { name: "Veterinary Science", info: "Animal health and veterinary medicine.", type: "service", salary: "₹4–10 LPA" }
+      ],
+      commerce: [
+        { name: "B.Com", info: "Focus on Accounting, Finance, Economics.", type: "technical", salary: "₹4–10 LPA" },
+        { name: "BBA", info: "Business Administration and Management Basics.", type: "technical", salary: "₹5–12 LPA" },
+        { name: "CA/CS", info: "Professional finance and corporate law paths.", type: "technical", salary: "₹10–25 LPA" },
+        { name: "Cost Accounting", info: "Management of company financials.", type: "technical", salary: "₹6–14 LPA" },
+        { name: "E-Commerce", info: "Digital marketing, online business skills.", type: "technical", salary: "₹5–11 LPA" },
+        { name: "Actuarial Science", info: "Risk and statistical finance modeling.", type: "technical", salary: "₹10–20 LPA" },
+        { name: "Banking & Insurance", info: "Focus on BFSI sector jobs.", type: "service", salary: "₹4–9 LPA" },
+        { name: "Logistics & Supply Chain", info: "Operations and backend of businesses.", type: "technical", salary: "₹5–10 LPA" },
+        { name: "Hotel Management", info: "Hospitality and tourism sector courses.", type: "service", salary: "₹4–8 LPA" },
+        { name: "Digital Finance", info: "FinTech and modern finance tools.", type: "technical", salary: "₹6–13 LPA" },
+        { name: "Retail Management", info: "Managing retail stores and chains.", type: "service", salary: "₹4–8 LPA" },
+        { name: "Tourism & Travel Management", info: "Travel industry, tour operations, and hospitality.", type: "service", salary: "₹4–9 LPA" },
+        { name: "Business Analytics", info: "Data-driven business decision making.", type: "technical", salary: "₹6–14 LPA" },
+        { name: "Foreign Trade", info: "International business and export-import.", type: "technical", salary: "₹5–12 LPA" },
+        { name: "Stock Market & Investment", info: "Finance, trading, and investment analysis.", type: "technical", salary: "₹5–15 LPA" }
+      ],
+      arts: [
+        { name: "BA (Humanities)", info: "History, Literature, Sociology, Political Science.", type: "creative", salary: "₹3–6 LPA" },
+        { name: "BFA", info: "Visual Arts, Design, Animation, Painting, Sculpture.", type: "creative", salary: "₹4–8 LPA" },
+        { name: "BSW", info: "Bachelor in Social Work – Social welfare, NGOs, etc.", type: "service", salary: "₹3–7 LPA" },
+        { name: "BA Journalism", info: "Media, reporting, and mass communication.", type: "creative", salary: "₹4–10 LPA" },
+        { name: "B.Ed (Integrated)", info: "Education training for school teaching.", type: "service", salary: "₹3–6 LPA" },
+        { name: "Psychology", info: "Study of human behavior and therapy.", type: "service", salary: "₹4–9 LPA" },
+        { name: "Fashion Designing", info: "Creative design in clothing and apparel.", type: "creative", salary: "₹5–12 LPA" },
+        { name: "Hotel Management", info: "Catering, service industry jobs.", type: "service", salary: "₹4–9 LPA" },
+        { name: "Animation & Multimedia", info: "Digital and VFX content creation.", type: "creative", salary: "₹5–11 LPA" },
+        { name: "Event Management", info: "Organizing events, PR, and coordination.", type: "creative", salary: "₹5–10 LPA" },
+        { name: "Law (BA LLB)", info: "Integrated law program for legal careers.", type: "service", salary: "₹5–12 LPA" },
+        { name: "Hotel & Hospitality Management", info: "Advanced hospitality and hotel operations.", type: "service", salary: "₹4–10 LPA" },
+        { name: "Foreign Languages", info: "Study of languages like French, German, Japanese.", type: "creative", salary: "₹4–9 LPA" },
+        { name: "Music & Performing Arts", info: "Music, dance, theatre, and performance.", type: "creative", salary: "₹3–8 LPA" },
+        { name: "Graphic Design", info: "Visual communication and digital design.", type: "creative", salary: "₹4–10 LPA" },
+        { name: "Public Administration", info: "Government and civil services preparation.", type: "service", salary: "₹5–10 LPA" },
+        { name: "Entrepreneurship", info: "Startups, business innovation, and management.", type: "creative", salary: "Varies" },
+        { name: "Advertising & Marketing", info: "Brand management, digital marketing, and PR.", type: "creative", salary: "₹5–12 LPA" },
+        { name: "Event Management", info: "Corporate and social event planning.", type: "service", salary: "₹5–10 LPA" },
+        { name: "Hotel & Hospitality Management", info: "Hotel operations, tourism, and hospitality.", type: "service", salary: "₹4–10 LPA" },
+        { name: "Sports Management", info: "Sports event, team, and facility management.", type: "service", salary: "₹4–9 LPA" },
+        { name: "Fine Arts", info: "Painting, sculpture, and creative arts.", type: "creative", salary: "₹3–8 LPA" },
+        { name: "Film & Media Studies", info: "Film making, editing, and media production.", type: "creative", salary: "₹4–10 LPA" },
+        { name: "Sociology", info: "Study of society, social behavior, and culture.", type: "service", salary: "₹3–7 LPA" },
+        { name: "Philosophy", info: "Critical thinking, ethics, and philosophy.", type: "creative", salary: "₹3–6 LPA" },
+        { name: "Travel & Tourism", info: "Tour guide, travel planning, and tourism management.", type: "service", salary: "₹3–8 LPA" }
+      ]
+    };
+
+    function showDepartments() {
+      const stream = document.getElementById("streamSelect").value;
+      displayDepartments(departments[stream] || [], stream);
+    }
+
+    function displayDepartments(list, stream) {
+      const output = document.getElementById("deptOutput");
+      output.innerHTML = "";
+
+      list.forEach((dept, index) => {
+        const liked = localStorage.getItem(dept.name) === "liked" ? "❤️" : "🤍";
+
+        output.innerHTML += `
+          <div class="card ${stream}">
+            <button class="like-btn" onclick="toggleLike('${dept.name}', this)">${liked}</button>
+            <h3>${dept.name} <span class="tooltip" title="Avg Salary: ${dept.salary}">💰</span></h3>
+            <p id="desc-${index}" data-full="false">${dept.info.slice(0, 40)}...</p>
+            <button onclick="toggleDesc(${index}, '${dept.info}')">Show More</button>
+          </div>
+        `;
+      });
+    }
+
+    function searchDepartments() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const all = Object.entries(departments).flatMap(([stream, list]) =>
+        list.map(d => ({ ...d, stream }))
+      );
+      const results = all.filter(d => d.name.toLowerCase().includes(query));
+      displayDepartments(results, results.length ? results[0].stream : "");
+    }
+
+    function toggleDesc(id, fullText) {
+      const para = document.getElementById(`desc-${id}`);
+      if (!para) return;
+      if (para.dataset.full === "true") {
+        para.innerText = fullText.slice(0, 40) + "...";
+        para.dataset.full = "false";
+        para.nextElementSibling.innerText = "Show More";
+      } else {
+        para.innerText = fullText;
+        para.dataset.full = "true";
+        para.nextElementSibling.innerText = "Show Less";
+      }
+    }
+
+    function toggleLike(name, btn) {
+      const liked = localStorage.getItem(name) === "liked";
+      localStorage.setItem(name, liked ? "unliked" : "liked");
+      btn.innerText = liked ? "🤍" : "❤️";
+    }
+
+    function filterByCareerType() {
+      const type = document.getElementById("careerType").value;
+      if (!type) return showDepartments();
+
+      const all = Object.entries(departments).flatMap(([stream, list]) =>
+        list.map(d => ({ ...d, stream }))
+      );
+      const results = all.filter(d => d.type === type);
+      displayDepartments(results, results.length ? results[0].stream : "");
+    }
+
+    function filterBySubjectGroup() {
+      const group = document.getElementById("subjectGroup").value;
+      if (!group) return showDepartments();
+      const all = Object.entries(departments).flatMap(([stream, list]) =>
+        list.map(d => ({ ...d, stream }))
+      );
+      const results = all.filter(d => d.group === group || (group === "Commerce" && d.stream === "commerce"));
+      displayDepartments(results, results.length ? results[0].stream : "");
+    }
+
+    function downloadDepartments() {
+  const cards = document.querySelectorAll("#deptOutput .card");
+  if (!cards.length) {
+    alert("No departments to download!");
+    return;
+  }
+  let txt = "Department List\n\n";
+  cards.forEach(card => {
+    const name = card.querySelector("h3").innerText.replace(/💰.*/, '').trim();
+    const desc = card.querySelector("p").innerText;
+    txt += `${name}\n${desc}\n\n`;
+  });
+
+  const blob = new Blob([txt], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "departments.txt";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function printDepartments() {
+  const element = document.getElementById("deptOutput");
+  const win = window.open('', '_blank');
+  win.document.write(`
+    <html>
+      <head>
+        <title>Print Departments</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 20px; }
+          .card { border: 1px solid #ccc; border-radius: 10px; padding: 15px; margin: 10px 0; }
+          h2 { text-align: center; }
+        </style>
+      </head>
+      <body>
+        <h2>Department List</h2>
+        ${element.innerHTML}
+        <script>
+          window.onload = function() { window.print(); }
+        <\/script>
+      </body>
+    </html>
+  `);
+  win.document.close();
+}
+    function updateSuggestions() {
+  const datalist = document.getElementById("deptSuggestions");
+  datalist.innerHTML = "";
+  const all = Object.entries(departments).flatMap(([stream, list]) => list);
+  all.forEach(d => {
+    const option = document.createElement("option");
+    option.value = d.name;
+    datalist.appendChild(option);
+  });
+}
+updateSuggestions();
+
+const careerTips = [
+  "Explore internships early to discover your interests.",
+  "Soft skills like communication are as important as technical skills.",
+  "Network with professionals in your field of interest.",
+  "Stay updated with new trends in your chosen career.",
+  "Participate in workshops and seminars for practical exposure.",
+  "Balance academics with extracurricular activities for all-round growth."
+];
+document.getElementById("careerTip").innerText = "💡 " + careerTips[Math.floor(Math.random() * careerTips.length)];
+  </script>
+</body>
+</html>

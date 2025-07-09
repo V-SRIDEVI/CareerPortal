@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🎓 Roadmaps for Classes 5–10</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: white;
+      color: black;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.theme-blue {
+      background-color: #e6f0ff;
+      color: #001f4d;
+    }
+
+    body.theme-green {
+      background-color: #e8f5e9;
+      color: #1b5e20;
+    }
+
+    body.theme-dark {
+      background: #181a1b !important;
+      color: #f1f1f1 !important;
+    }
+    body.theme-dark header, body.theme-dark footer {
+      background: #222 !important;
+      color: #fff !important;
+    }
+    body.theme-dark #roadmapOutput,
+    body.theme-dark .tools,
+    body.theme-dark .teacher-tips,
+    body.theme-dark .career-path,
+    body.theme-dark .smart-pass,
+    body.theme-dark .feedback,
+    body.theme-dark .timer-box {
+      background: #23272b !important;
+      color: #f1f1f1 !important;
+    }
+    body.theme-dark select,
+    body.theme-dark input,
+    body.theme-dark textarea {
+      background: #222 !important;
+      color: #fff !important;
+      border: 1px solid #444 !important;
+    }
+    body.theme-dark .download-btn,
+    body.theme-dark .lang-toggle,
+    body.theme-dark .back-home {
+      background: #333 !important;
+      color: #ffd700 !important;
+    }
+    body.theme-dark .download-btn:hover,
+    body.theme-dark .lang-toggle:hover,
+    body.theme-dark .back-home:hover {
+      background: #444 !important;
+    }
+
+    header, footer {
+      background-color: #004080;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      transition: background 0.5s;
+    }
+
+    .controls {
+      text-align: center;
+      margin: 10px;
+      flex-wrap: wrap;
+    }
+
+    .back-home, .lang-toggle, .download-btn {
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      border: none;
+    }
+
+    .back-home:hover, .lang-toggle:hover, .download-btn:hover {
+      background: #0056b3;
+    }
+
+    select {
+      display: block;
+      margin: 20px auto;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 10px;
+    }
+
+    #roadmapOutput {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      background: #ffffff;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+      font-size: 17px;
+      line-height: 1.6;
+      transition: background 0.4s, color 0.4s;
+      animation: fadeIn 0.7s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .teacher-tips, .career-path, .feedback, .tools, .smart-pass, .timer-box {
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 8px;
+      transition: background 0.4s, border-left 0.4s;
+    }
+
+    .teacher-tips { background: #ffe6e6; border-left: 6px solid #ff4d4d; }
+    .career-path { background: #d4edda; border-left: 6px solid #28a745; }
+    .smart-pass { background: #e2f0fb; border-left: 6px solid #007bff; }
+    .feedback { background: #f8f9fa; border-left: 6px solid #17a2b8; }
+    .tools { background: #e6ffe6; border-left: 6px solid #00c851; }
+    .timer-box { background: #fff0f5; border-left: 6px solid #d63384; }
+
+    .top-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Ensure table headers and cells are visible in dark mode */
+    body.theme-dark table,
+    body.theme-dark th,
+    body.theme-dark td {
+      background: #23272b !important;
+      color: #f1f1f1 !important;
+      border-color: #444 !important;
+    }
+
+    /* Highlighted keywords in dark mode */
+    body.theme-dark span[style*="background: #fff3cd"] {
+      background: #444a2a !important;
+      color: #ffe066 !important;
+    }
+
+    @media screen and (max-width: 600px) {
+      #roadmapOutput, .controls, .top-button {
+        padding: 15px;
+        font-size: 16px;
+      }
+      .controls { display: flex; flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body onload="restoreSelection()">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">🎓 Career Portal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="roadmap.html">🗸️ Roadmap</a></li>
+          <li class="nav-item"><a class="nav-link" href="group-selection.html">🧽 Group Selection</a></li>
+          <li class="nav-item"><a class="nav-link" href="departments.html">🏩 Departments</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="feedback.html">📝 Feedback</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <h1>📚 Class-wise Roadmaps (5–10)</h1>
+    <div class="controls">
+      <a href="index.html" class="back-home">🏠 Home</a>
+      <button class="lang-toggle" onclick="toggleLanguage()">🌐 Language</button>
+      <button class="lang-toggle" onclick="window.print()">🖨️ Print</button>
+      <select onchange="changeTheme(this.value)" style="max-width:200px; margin-top:10px;">
+        <option value="">🎨 Select Theme</option>
+        <option value="default">🌞 Default</option>
+        <option value="blue">🔵 Blue</option>
+        <option value="green">🟢 Green</option>
+        <option value="dark">🌙 Dark</option>
+      </select>
+    </div>
+    <!-- Place navigation buttons here -->
+    <div class="tools" style="text-align:center; margin: 10px 0;">
+      <button class="download-btn" onclick="showSection('sticky-note-section')">📝 Go to Sticky Note</button>
+      <button class="download-btn" onclick="showSection('unit-converter-section')">🔄 Go to Unit Converter</button>
+      <button class="download-btn" onclick="showSection('fun-fact-section')">🎲 Go to Fun Fact</button>
+      <button class="download-btn" onclick="showSection('weekly-planner-section')">📅 Weekly Planner</button>
+      <button class="download-btn" onclick="showSection('doodle-pad-section')">🖌️ Doodle Pad</button>
+      <button class="download-btn" onclick="showSection('progress-checker-section')">📊 Progress Checker</button>
+      <button class="download-btn" onclick="showSection('mood-tracker-section')">🔁 Mood Tracker</button>
+      <button class="download-btn" onclick="showSection('trig-section')">📐 Trigonometry Helper</button>
+    </div>
+  </header>
+
+  <select id="classSelect" onchange="showRoadmap()">
+    <option value="">🔍 Select Your Class</option>
+    <option value="5">Class 5</option>
+    <option value="6">Class 6</option>
+    <option value="7">Class 7</option>
+    <option value="8">Class 8</option>
+    <option value="9">Class 9</option>
+    <option value="10">Class 10</option>
+  </select>
+
+  <div id="roadmapOutput"></div>
+  <div class="top-button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️</div>
+
+  <!-- Place these three sections here, above the footer -->
+  <!-- Sticky Note Pad -->
+  <div class="tools" id="sticky-note-section" style="margin:20px auto;max-width:500px; display:none;">
+    <h4>📝 Sticky Note Pad</h4>
+    <textarea id="sticky-note" rows="4" style="width:100%;border-radius:8px;"></textarea>
+    <br>
+    <button class="download-btn" onclick="clearStickyNote()">Clear</button>
+    <button class="download-btn" onclick="downloadStickyNote()">Download Note</button>
+  </div>
+
+  <!-- Unit Conversion Helper -->
+  <div class="tools" id="unit-converter-section" style="margin:20px auto;max-width:500px; display:none;">
+    <h4>🔄 Unit Conversion Helper</h4>
+    <input type="number" id="cmInput" placeholder="Centimeters" style="width:120px;">
+    <button class="download-btn" onclick="convertCMtoInch()">Convert to Inches</button>
+    <span id="inchResult"></span>
+  </div>
+
+  <!-- Random Fun Fact Generator -->
+  <div class="tools" id="fun-fact-section" style="margin:20px auto;max-width:500px; display:none;">
+    <h4>🎲 Random Fun Fact</h4>
+    <p id="fun-fact"></p>
+    <button class="download-btn" onclick="showFunFact()">Show Another</button>
+  </div>
+
+  <!-- Weekly Study Planner -->
+  <div class="tools" id="weekly-planner-section" style="margin:20px auto;max-width:700px; display:none;">
+  <h4>📅 Weekly Study Planner</h4>
+  <table style="width:100%;border-collapse:collapse;text-align:center;">
+    <tr style="background:#007bff;color:#fff;">
+      <th>Time</th>
+      <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+    </tr>
+    <tr><td>6–7am</td><td>Math</td><td>Science</td><td>English</td><td>Math</td><td>Science</td><td>Revision</td><td>Rest</td></tr>
+    <tr><td>7–8pm</td><td>English</td><td>Math</td><td>Science</td><td>English</td><td>Math</td><td>Test</td><td>Rest</td></tr>
+    <tr><td>8–9pm</td><td>Revision</td><td>Revision</td><td>Revision</td><td>Revision</td><td>Revision</td><td>Fun Reading</td><td>Rest</td></tr>
+  </table>
+</div>
+
+  <!-- Doodle Pad -->
+  <div class="tools" id="doodle-pad-section" style="margin:20px auto;max-width:500px; display:none;">
+    <h4>🖌️ Doodle Pad</h4>
+    <canvas id="doodle-canvas" width="400" height="200" style="border:1px solid #007bff;border-radius:8px;background:#fff;"></canvas>
+    <br>
+    <button class="download-btn" onclick="clearDoodle()">Clear</button>
+    <button class="download-btn" onclick="downloadDoodle()">Download</button>
+  </div>
+
+  <!-- Study Progress Self-Checker -->
+  <div class="tools" id="progress-checker-section" style="margin:20px auto;max-width:500px; display:none;">
+  <h4>📊 Study Progress Self-Checker</h4>
+  <label><input type="checkbox"> Finished Math</label><br>
+  <label><input type="checkbox"> Revised Science</label><br>
+  <label><input type="checkbox"> Practiced English</label><br>
+  <label><input type="checkbox"> Completed Homework</label><br>
+  <label><input type="checkbox"> Revision Test Done</label>
+</div>
+
+  <!-- Focus Traffic Light Reminder -->
+  <div class="tools" id="focus-traffic-section" style="margin:20px auto;max-width:500px; display:none;">
+    <h4>🚦 Focus Traffic Light Reminder</h4>
+    <ul style="list-style:none;padding:0;">
+      <li><span style="font-size:1.5em;">🟢</span> Focus Time (0–15 mins)</li>
+      <li><span style="font-size:1.5em;">🟡</span> Stay Alert (15–25 mins)</li>
+      <li><span style="font-size:1.5em;">🔴</span> Take Break (after 25 mins)</li>
+    </ul>
+  </div>
+
+  <!-- Emoji Mood Tracker -->
+  <div class="tools" id="mood-tracker-section" style="margin:20px auto;max-width:500px; display:none;">
+    <h4>🔁 Emoji Mood Tracker</h4>
+    <button onclick="setMood('happy')" style="font-size:2em;">😀</button>
+    <button onclick="setMood('neutral')" style="font-size:2em;">😐</button>
+    <button onclick="setMood('stressed')" style="font-size:2em;">😟</button>
+    <div id="mood-message" style="margin-top:10px;font-weight:bold;"></div>
+  </div>
+
+  <!-- Trigonometry Helper -->
+  <div class="tools" id="trig-section" style="margin:20px auto;max-width:500px; display:none;">
+  <h4>📐 Trigonometry Helper</h4>
+  <label>Angle (degrees): <input type="number" id="trig-angle" value="30" style="width:80px;"></label>
+  <button class="download-btn" onclick="calcTrig()">Calculate</button>
+  <button class="download-btn" onclick="copyTrigResult()">Copy Result</button>
+  <div id="trig-result" style="margin:10px 0;"></div>
+  <canvas id="trig-graph" width="400" height="200" style="border:1px solid #007bff; margin:10px 0; background:#fff;"></canvas>
+  <div style="margin-bottom:10px;">
+    <button class="download-btn" onclick="plotTrigGraph('sin')">Plot sin(x)</button>
+    <button class="download-btn" onclick="plotTrigGraph('cos')">Plot cos(x)</button>
+    <button class="download-btn" onclick="plotTrigGraph('tan')">Plot tan(x)</button>
+  </div>
+  <div style="margin:10px 0;">
+    <label>Value: <input type="number" id="trig-inv-value" step="any" style="width:80px;"></label>
+    <button class="download-btn" onclick="calcInverseTrig('asin')">sin⁻¹</button>
+    <button class="download-btn" onclick="calcInverseTrig('acos')">cos⁻¹</button>
+    <button class="download-btn" onclick="calcInverseTrig('atan')">tan⁻¹</button>
+    <span id="trig-inv-result" style="margin-left:10px;"></span>
+  </div>
+  <h5>Common Angles Table</h5>
+  <table style="width:100%;text-align:center;border-collapse:collapse;">
+    <tr style="background:#007bff;color:#fff;">
+      <th>Angle</th><th>sin</th><th>cos</th><th>tan</th>
+    </tr>
+    <tr><td>0°</td><td>0</td><td>1</td><td>0</td></tr>
+    <tr><td>30°</td><td>0.5</td><td>0.866</td><td>0.577</td></tr>
+    <tr><td>45°</td><td>0.707</td><td>0.707</td><td>1</td></tr>
+    <tr><td>60°</td><td>0.866</td><td>0.5</td><td>1.732</td></tr>
+    <tr><td>90°</td><td>1</td><td>0</td><td>∞</td></tr>
+  </table>
+</div>
+
+  <footer>© 2025 Career Guide | Explore. Learn. Grow.</footer>
+
+  <script>
+    let currentLanguage = localStorage.getItem("selectedLang") || "en";
+
+    const roadmapContent = {
+  en: {
+    "5": `<h2>🍞 Class 5 – Foundation Building</h2>
+      <b>English:</b> Grammar, short stories, basic writing.<br>
+      <b>Math:</b> Multiplication, division, basic geometry.<br>
+      <b>EVS:</b> Nature, environment, human body.<br>
+      <b>Computer:</b> Computer parts, Paint, Word basics.<br>
+      <b>GK:</b> States & capitals, famous personalities.<br>
+      <b>Life Skill:</b> Table manners, safety rules.<br>
+      <b>Study Tip:</b> Read aloud, solve puzzles, use drawing to explain.<br>`,
+
+    "6": `<h2>📘 Class 6 – Concept Strengthening</h2>
+      <b>Math:</b> Fractions, decimals, basic algebra, factors & multiples.<br>
+      <b>Science:</b> Living things, materials, motion & measurement.<br>
+      <b>Social Science:</b> History (Early man), civics, geography (India).<br>
+      <b>English:</b> Comprehension, grammar, creative writing.<br>
+      <b>Computer:</b> MS Word, Internet basics.<br>
+      <b>Life Skill:</b> Teamwork, personal hygiene.<br>
+      <b>Study Tip:</b> Use diagrams, group learning, online quizzes.<br>`,
+
+    "7": `<h2>📚 Class 7 – Skill Development</h2>
+      <b>Math:</b> Geometry, percentages, basic equations.<br>
+      <b>Science:</b> Nutrition, respiration, weather & climate.<br>
+      <b>Social Science:</b> Medieval history, environment, democracy.<br>
+      <b>English:</b> Essays, speeches, parts of speech.<br>
+      <b>Computer:</b> PowerPoint, typing skills.<br>
+      <b>Life Skill:</b> Time management, empathy.<br>
+      <b>Study Tip:</b> Flashcards, weekly revision tests.<br>`,
+
+    "8": `<h2>📗 Class 8 – Knowledge Expansion</h2>
+      <b>Math:</b> Exponents, data handling, linear graphs.<br>
+      <b>Science:</b> Friction, combustion, cell structure.<br>
+      <b>Social Science:</b> 1857 revolt, industries, Constitution.<br>
+      <b>English:</b> Letters, story writing, grammar exercises.<br>
+      <b>Computer:</b> Excel, browsing skills, internet safety.<br>
+      <b>Life Skill:</b> Self-awareness, respecting differences.<br>
+      <b>Study Tip:</b> Solve sample worksheets, mind maps for concepts.<br>`,
+
+    "9": `<h2>📙 Class 9 – Exam Readiness</h2>
+      <b>Math:</b> Algebra, statistics, coordinate geometry.<br>
+      <b>Science:</b> Atoms, tissues, Newton’s laws.<br>
+      <b>Social Science:</b> Nazism, climate change, democracy.<br>
+      <b>English:</b> Literature, grammar, report writing.<br>
+      <b>Computer:</b> HTML basics, cyber safety.<br>
+      <b>Life Skill:</b> Managing emotions, study planning.<br>
+      <b>Study Tip:</b> Use previous papers, build a concept map.<br>`,
+
+    "10": `<h2>📒 Class 10 – Board Focus</h2>
+      <b>Math:</b> Trigonometry, probability, geometry & statistics.<br>
+      <b>Science:</b> Chemical reactions, electricity, light.<br>
+      <b>Social Science:</b> Nationalism, industrialization, globalization.<br>
+      <b>English:</b> Poetry, comprehension, letter & article writing.<br>
+      <b>Computer:</b> Python basics / IT apps (based on board).<br>
+      <b>Life Skill:</b> Exam stress management, peer collaboration.<br>
+      <b>Study Tip:</b> Strict timetable, practice sample boards daily.<br>`
+  },
+
+  ta: {
+    "5": `<h2>🍞 வகுப்பு 5 – அடித்தளம் கட்டமைப்பு</h2>
+      <b>ஆங்கிலம்:</b> இலக்கணம், சிறுகதைகள், எழுதுதல்.<br>
+      <b>கணிதம்:</b> பெருக்கல், வகுத்தல், வடிவியல்.<br>
+      <b>சுற்றுச்சூழல்:</b> இயற்கை, மனித உடல்.<br>
+      <b>கணினி:</b> கூறுகள், பெயிண்ட், வார்ட்.<br>
+      <b>பொது அறிவு:</b> மாநிலங்கள், பிரபலங்கள்.<br>
+      <b>வாழ்க்கைத் திறன்:</b> நற்பண்புகள், பாதுகாப்பு.<br>
+      <b>பயிற்சி குறிப்பு:</b> படம் வரை, கேள்வி பதில் பயிற்சி.<br>`,
+
+    "6": `<h2>📘 வகுப்பு 6 – கருத்துகளை வலுப்படுத்தல்</h2>
+      <b>கணிதம்:</b> பகுபிரிவுகள், தசமங்கள், எளிய ஆல்ஜீப்ரா.<br>
+      <b>அறிவியல்:</b> உயிரினங்கள், பொருட்கள்.<br>
+      <b>சமூக அறிவியல்:</b> வரலாறு, குடிமை, இந்தியா புவியியல்.<br>
+      <b>ஆங்கிலம்:</b> புரிதல், சொற்களின் வகை, கட்டுரைகள்.<br>
+      <b>கணினி:</b> வார்ட், இணைய அடிப்படை.<br>
+      <b>வாழ்க்கைத் திறன்:</b> ஒழுங்கு, ஒற்றுமை.<br>
+      <b>பயிற்சி குறிப்பு:</b> குழு பயிற்சி, ஆன்லைன் விளையாட்டுகள்.<br>`,
+
+    "7": `<h2>📚 வகுப்பு 7 – திறன் வளர்ச்சி</h2>
+      <b>கணிதம்:</b> வடிவவியல், சதவிகிதம், சமன்பாடுகள்.<br>
+      <b>அறிவியல்:</b> ஊட்டச்சத்து, மூச்சுவிடுதல்.<br>
+      <b>சமூக அறிவியல்:</b> நடுத்தர வரலாறு, சுற்றுச்சூழல்.<br>
+      <b>ஆங்கிலம்:</b> கட்டுரைகள், உரைகள்.<br>
+      <b>கணினி:</b> பவர் பாயிண்ட், விசைப்பலகை பயிற்சி.<br>
+      <b>வாழ்க்கைத் திறன்:</b> நேர மேலாண்மை.<br>
+      <b>பயிற்சி குறிப்பு:</b> ஃபிளாஷ்கார்டு, வாராந்த தேர்வுகள்.<br>`,
+
+    "8": `<h2>📗 வகுப்பு 8 – அறிவை விரிவாக்கம்</h2>
+      <b>கணிதம்:</b> எக்ஸ்போனென்ட்கள், தரவுகள்.<br>
+      <b>அறிவியல்:</b> உராய்வு, உமிழ்வு.<br>
+      <b>சமூக அறிவியல்:</b> 1857 கிளர்ச்சி, தொழில்கள்.<br>
+      <b>ஆங்கிலம்:</b> கடிதம், கதை எழுதல்.<br>
+      <b>கணினி:</b> எக்செல், இணையம்.<br>
+      <b>வாழ்க்கைத் திறன்:</b> சுய நலம், மதிப்பீடு.<br>
+      <b>பயிற்சி குறிப்பு:</b> ஞாபகப்படுத்தும் வரைபடம் உருவாக்கவும்.<br>`,
+
+    "9": `<h2>📙 வகுப்பு 9 – தேர்வு தயார்</h2>
+      <b>கணிதம்:</b> ஆல்ஜீப்ரா, புள்ளிவிவரம்.<br>
+      <b>அறிவியல்:</b> அணுக்கள், திசுக்கள், இயக்க சட்டங்கள்.<br>
+      <b>சமூக அறிவியல்:</b> நாசிசம், பருவநிலை மாற்றம்.<br>
+      <b>ஆங்கிலம்:</b> இலக்கியம், அறிக்கைகள்.<br>
+      <b>கணினி:</b> HTML அடிப்படை.<br>
+      <b>வாழ்க்கைத் திறன்:</b> மனநிலை கட்டுப்பாடு.<br>
+      <b>பயிற்சி குறிப்பு:</b> பழைய கேள்விகள், வரைவுச் சுருக்கம்.<br>`,
+
+    "10": `<h2>📒 வகுப்பு 10 – தேர்வுத் தீவிரம்</h2>
+      <b>கணிதம்:</b> திரிகோணவியல், வாய்ப்பு.<br>
+      <b>அறிவியல்:</b> வேதி மாற்றம், மின்னியல்.<br>
+      <b>சமூக அறிவியல்:</b> தேசியவாதம், உலகமயமாக்கல்.<br>
+      <b>ஆங்கிலம்:</b> கவிதைகள், கட்டுரை.<br>
+      <b>கணினி:</b> பைத்தான் அடிப்படை.<br>
+      <b>வாழ்க்கைத் திறன்:</b> தேர்வு திட்டமிடல்.<br>
+      <b>பயிற்சி குறிப்பு:</b> தினசரி திட்டம், மாதிரி கேள்விகள்.<br>`
+  },
+
+  hi: {
+    "5": `<h2>🍞 कक्षा 5 – नींव तैयार करना</h2>
+      <b>अंग्रेजी:</b> व्याकरण, कहानियाँ, लेखन।<br>
+      <b>गणित:</b> गुणा, भाग, ज्यामिति।<br>
+      <b>पर्यावरण:</b> प्रकृति, शरीर।<br>
+      <b>कंप्यूटर:</b> भाग, Paint, Word।<br>
+      <b>जीके:</b> राज्य, व्यक्तित्व।<br>
+      <b>जीवन कौशल:</b> शिष्टाचार, नियम पालन।<br>
+      <b>पढ़ाई टिप:</b> जोर से पढ़ें, चित्र बनाएं।<br>`,
+
+    "6": `<h2>📘 कक्षा 6 – अवधारणाएँ मजबूत करना</h2>
+      <b>गणित:</b> भिन्न, दशमलव, गुणनखंड।<br>
+      <b>विज्ञान:</b> जीव, पदार्थ, मापन।<br>
+      <b>सामाजिक विज्ञान:</b> इतिहास, नागरिक शास्त्र, भारत का नक्शा।<br>
+      <b>अंग्रेजी:</b> लेखन, व्याकरण।<br>
+      <b>कंप्यूटर:</b> MS Word, इंटरनेट परिचय।<br>
+      <b>जीवन कौशल:</b> सफाई, समूह कार्य।<br>
+      <b>पढ़ाई टिप:</b> चित्र, वीडियो से पढ़ाई करें।<br>`,
+
+    "7": `<h2>📚 कक्षा 7 – कौशल विकास</h2>
+      <b>गणित:</b> ज्यामिति, प्रतिशत, समीकरण।<br>
+      <b>विज्ञान:</b> पोषण, श्वसन, पर्यावरण।<br>
+      <b>सामाजिक विज्ञान:</b> मध्यकालीन इतिहास।<br>
+      <b>अंग्रेजी:</b> निबंध, भाषण।<br>
+      <b>कंप्यूटर:</b> पावरपॉइंट, टाइपिंग।<br>
+      <b>जीवन कौशल:</b> समय प्रबंधन।<br>
+      <b>पढ़ाई टिप:</b> फ्लैशकार्ड, टेस्ट लें।<br>`,
+
+    "8": `<h2>📗 कक्षा 8 – ज्ञान विस्तार</h2>
+      <b>गणित:</b> घातांक, डेटा।<br>
+      <b>विज्ञान:</b> घर्षण, ज्वलन।<br>
+      <b>सामाजिक विज्ञान:</b> 1857 विद्रोह, संसाधन।<br>
+      <b>अंग्रेजी:</b> पत्र लेखन, कहानी।<br>
+      <b>कंप्यूटर:</b> Excel, वेब ब्राउज़िंग।<br>
+      <b>जीवन कौशल:</b> आत्म जागरूकता।<br>
+      <b>पढ़ाई टिप:</b> चार्ट, नक्शा बनाएं।<br>`,
+
+    "9": `<h2>📙 कक्षा 9 – परीक्षा की तैयारी</h2>
+      <b>गणित:</b> बीजगणित, सांख्यिकी।<br>
+      <b>विज्ञान:</b> परमाणु, ऊतक।<br>
+      <b>सामाजिक विज्ञान:</b> नाज़ीवाद, जलवायु।<br>
+      <b>अंग्रेजी:</b> साहित्य, रिपोर्ट लेखन।<br>
+      <b>कंप्यूटर:</b> HTML, साइबर सुरक्षा।<br>
+      <b>जीवन कौशल:</b> अध्ययन योजना बनाना।<br>
+      <b>पढ़ाई टिप:</b> पुराने पेपर से अभ्यास करें।<br>`,
+
+    "10": `<h2>📒 कक्षा 10 – बोर्ड तैयारी</h2>
+      <b>गणित:</b> त्रिकोणमिति, प्रायिकता।<br>
+      <b>विज्ञान:</b> रासायनिक अभिक्रियाएँ, विद्युत।<br>
+      <b>सामाजिक विज्ञान:</b> राष्ट्रवाद, वैश्वीकरण।<br>
+      <b>अंग्रेजी:</b> कविता, लेखन कौशल।<br>
+      <b>कंप्यूटर:</b> पायथन, IT एप्स।<br>
+      <b>जीवन कौशल:</b> परीक्षा प्रबंधन, आत्म विश्वास।<br>
+      <b>पढ़ाई टिप:</b> डेली रिवीजन करें, टाइमटेबल बनाएं।<br>`
+  }
+};
+
+   const teacherTips = `<div class="teacher-tips"><h3>👩‍🏫 Tips for Teachers</h3><ul><li>Encourage group discussions</li><li>Use real-world examples</li><li>Weekly tests for revision</li><li>Promote self-learning activities</li></ul></div>`;
+    const smartPass = `<div class="smart-pass"><h3>🚀 Smart Techniques to Pass</h3><ul><li>Focus on weak topics first</li><li>Daily 1-hour revision</li><li>Use simple tricks to remember</li><li>Keep summary notes</li></ul></div>`;
+    const tools = `<div class="tools"><h3>🔣 Tools:</h3><button onclick="startTTS()">🎤 Read Aloud</button><button onclick="stopTTS()">⛔ Stop</button><button onclick="resetTTS()">🔄 Reset</button><button onclick="startTimer()">⏳ Start Timer</button><button onclick="stopTimer()">🔝 Stop</button><button onclick="resetTimer()">🔁 Reset</button></div>`;
+    const timer = `<div class="timer-box"><h3>⏱ Study Timer: <span id="timer">00:00</span></h3></div>`;
+
+    function highlightKeywords(html) {
+      const keywords = [
+        "trigonometry", "fractions", "algebra", "geometry", "probability", "statistics",
+        "revision", "test", "practice", "sample", "concept", "diagram", "map"
+      ];
+      keywords.forEach(word => {
+        const regex = new RegExp(`(${word})`, "gi");
+        html = html.replace(regex, `<span style="background: #fff3cd; font-weight:bold;">$1</span>`);
+      });
+      return html;
+    }
+
+    // In showRoadmap(), wrap roadmap with highlightKeywords:
+    function showRoadmap() {
+      const classNum = document.getElementById("classSelect").value;
+      if (!classNum) return;
+      localStorage.setItem("selectedClass", classNum);
+      let roadmap = roadmapContent[currentLanguage][classNum] || "";
+      roadmap = highlightKeywords(roadmap);
+      document.getElementById("roadmapOutput").innerHTML = roadmap + teacherTips + smartPass + tools + timer;
+    }
+
+    function toggleLanguage() {
+      const langs = ["en", "ta", "hi"];
+      const currentIndex = langs.indexOf(currentLanguage);
+      currentLanguage = langs[(currentIndex + 1) % langs.length];
+      localStorage.setItem("selectedLang", currentLanguage);
+      showRoadmap();
+    }
+
+    function changeTheme(theme) {
+      document.body.className = '';
+      if (theme === 'blue') document.body.classList.add('theme-blue');
+      else if (theme === 'green') document.body.classList.add('theme-green');
+      else if (theme === 'dark') document.body.classList.add('theme-dark');
+      localStorage.setItem("theme", theme);
+    }
+
+    function restoreSelection() {
+      const savedClass = localStorage.getItem("selectedClass");
+      currentLanguage = localStorage.getItem("selectedLang") || "en";
+      const theme = localStorage.getItem("theme");
+      changeTheme(theme);
+      if (savedClass) {
+        document.getElementById("classSelect").value = savedClass;
+        showRoadmap();
+      }
+    }
+
+    let timerInterval, timerSeconds = 0, speech;
+    function startTTS() {
+      stopTTS();
+      const text = document.getElementById("roadmapOutput").innerText;
+      speech = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(speech);
+    }
+    function stopTTS() {
+      window.speechSynthesis.cancel();
+    }
+    function resetTTS() {
+      stopTTS();
+      startTTS();
+    }
+    function startTimer() {
+      stopTimer();
+      timerSeconds = 0;
+      timerInterval = setInterval(() => {
+        timerSeconds++;
+        const minutes = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+        const seconds = String(timerSeconds % 60).padStart(2, '0');
+        document.getElementById("timer").innerText = `${minutes}:${seconds}`;
+      }, 1000);
+    }
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+    function resetTimer() {
+      stopTimer();
+      timerSeconds = 0;
+      document.getElementById("timer").innerText = "00:00";
+    }
+
+    // Sticky Note Pad
+  document.getElementById('sticky-note').addEventListener('input', function() {
+    sessionStorage.setItem('stickyNote', this.value);
+  });
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('sticky-note').value = sessionStorage.getItem('stickyNote') || '';
+    showFunFact();
+    showWordOfDay();
+  });
+  function clearStickyNote() {
+    document.getElementById('sticky-note').value = '';
+    sessionStorage.removeItem('stickyNote');
+  }
+  function downloadStickyNote() {
+    const note = document.getElementById('sticky-note').value;
+    const blob = new Blob([note], { type: "text/plain" });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = "sticky-note.txt";
+    link.click();
+  }
+
+  // Unit Conversion Helper
+  function convertCMtoInch() {
+    const cm = parseFloat(document.getElementById('cmInput').value);
+    if (!isNaN(cm)) {
+      document.getElementById('inchResult').innerText = `= ${(cm / 2.54).toFixed(2)} inches`;
+    } else {
+      document.getElementById('inchResult').innerText = '';
+    }
+  }
+
+  // Random Fun Fact Generator
+  const funFacts = [
+    "Honey never spoils. Archaeologists have found 3000-year-old honey in Egyptian tombs!",
+    "Bananas are berries, but strawberries are not.",
+    "Octopuses have three hearts.",
+    "A group of flamingos is called a 'flamboyance'.",
+    "The Eiffel Tower can be 15 cm taller during hot days."
+  ];
+  function showFunFact() {
+    const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
+    document.getElementById('fun-fact').innerText = fact;
+  }
+
+  // Word of the Day (English, Tamil, Hindi)
+  const words = [
+    {
+      en: { word: "Serene", meaning: "Calm, peaceful", usage: "The lake was serene at dawn." },
+      ta: { word: "அமைதி (Amaithi)", meaning: "Calmness", usage: "அவள் அமைதியாக இருந்தாள்." },
+      hi: { word: "शांत (Shaant)", meaning: "Peaceful", usage: "झील शांत थी।" }
+    },
+    {
+      en: { word: "Aspire", meaning: "To hope or dream", usage: "She aspires to be a doctor." },
+      ta: { word: "விரும்பு (Virumbu)", meaning: "To wish", usage: "அவர் மருத்துவராக விரும்புகிறார்." },
+      hi: { word: "आकांक्षा (Aakanksha)", meaning: "Aspiration", usage: "वह डॉक्टर बनने की आकांक्षा रखती है।" }
+    },
+    {
+      en: { word: "Gratitude", meaning: "Thankfulness", usage: "He showed gratitude for the help." },
+      ta: { word: "நன்றி (Nanri)", meaning: "Thanks", usage: "அவர் நன்றி கூறினார்." },
+      hi: { word: "आभार (Aabhaar)", meaning: "Gratitude", usage: "उसने मदद के लिए आभार व्यक्त किया।" }
+    }
+  ];
+  function showWordOfDay() {
+    const w = words[Math.floor(Math.random() * words.length)];
+    document.getElementById('word-en').innerHTML = `<b>${w.en.word}</b> - ${w.en.meaning}<br><i>${w.en.usage}</i>`;
+    document.getElementById('word-ta').innerHTML = `<b>${w.ta.word}</b> - ${w.ta.meaning}<br><i>${w.ta.usage}</i>`;
+    document.getElementById('word-hi').innerHTML = `<b>${w.hi.word}</b> - ${w.hi.meaning}<br><i>${w.hi.usage}</i>`;
+  }
+
+  function goToSection(sectionId) {
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.style.boxShadow = "0 0 10px 2px #007bff";
+    setTimeout(() => { el.style.boxShadow = ""; }, 1200);
+  }
+}
+
+function showSection(sectionId) {
+  // Hide all tool sections
+  document.getElementById('sticky-note-section').style.display = 'none';
+  document.getElementById('unit-converter-section').style.display = 'none';
+  document.getElementById('fun-fact-section').style.display = 'none';
+  document.getElementById('weekly-planner-section').style.display = 'none';
+  document.getElementById('doodle-pad-section').style.display = 'none';
+  document.getElementById('progress-checker-section').style.display = 'none';
+  document.getElementById('focus-traffic-section').style.display = 'none';
+  document.getElementById('mood-tracker-section').style.display = 'none';
+  document.getElementById('trig-section').style.display = 'none';
+  // Show the selected section
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.style.display = 'block';
+    // Scroll to top with offset for fixed navbar (e.g., 70px)
+    const yOffset = -document.querySelector('.navbar').offsetHeight || -70;
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+    el.style.boxShadow = "0 0 10px 2px #007bff";
+    setTimeout(() => { el.style.boxShadow = ""; }, 1200);
+  }
+}
+
+// Doodle Pad
+const canvas = document.getElementById('doodle-canvas');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  let drawing = false;
+  canvas.addEventListener('mousedown', () => drawing = true);
+  canvas.addEventListener('mouseup', () => drawing = false);
+  canvas.addEventListener('mouseleave', () => drawing = false);
+  canvas.addEventListener('mousemove', function(e) {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#007bff";
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  });
+  function clearDoodle() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+  }
+  window.clearDoodle = clearDoodle;
+}
+
+// Emoji Mood Tracker
+let currentMood = localStorage.getItem('currentMood') || 'neutral';
+const moodMessage = {
+  happy: "Great to see you're happy! 😊",
+  neutral: "How about adding a smile today? 🙂",
+  stressed: "Take a deep breath, it's time to relax. 🌈"
+};
+document.getElementById('mood-message').innerText = moodMessage[currentMood];
+
+function setMood(mood) {
+  currentMood = mood;
+  localStorage.setItem('currentMood', mood);
+  document.getElementById('mood-message').innerText = moodMessage[mood];
+}
+
+function downloadDoodle() {
+  const canvas = document.getElementById('doodle-canvas');
+  const link = document.createElement('a');
+  link.download = 'doodle.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function calcTrig() {
+  const deg = parseFloat(document.getElementById('trig-angle').value);
+  if (isNaN(deg)) {
+    document.getElementById('trig-result').innerText = "Please enter a valid angle.";
+    return;
+  }
+  const rad = deg * Math.PI / 180;
+  const sin = Math.sin(rad).toFixed(3);
+  const cos = Math.cos(rad).toFixed(3);
+  let tan;
+  if (Math.abs(cos) < 1e-10) tan = "∞";
+  else tan = (Math.tan(rad)).toFixed(3);
+  document.getElementById('trig-result').innerHTML =
+    `<b>${deg}° = ${rad.toFixed(3)} radians</b><br>
+     <b>sin(${deg}°)</b> = ${sin}<br>
+     <b>cos(${deg}°)</b> = ${cos}<br>
+     <b>tan(${deg}°)</b> = ${tan}`;
+}
+
+function copyTrigResult() {
+  const result = document.getElementById('trig-result').innerText;
+  navigator.clipboard.writeText(result);
+  alert("Trigonometry result copied!");
+}
+
+function plotTrigGraph(type) {
+  const canvas = document.getElementById('trig-graph');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw axes
+  ctx.strokeStyle = "#888";
+  ctx.beginPath();
+  ctx.moveTo(30, canvas.height/2);
+  ctx.lineTo(canvas.width-10, canvas.height/2);
+  ctx.moveTo(30, 10);
+  ctx.lineTo(30, canvas.height-10);
+  ctx.stroke();
+
+  // Plot function
+  ctx.strokeStyle = "#007bff";
+  ctx.beginPath();
+  for(let x=0; x<=360; x++) {
+    let rad = x * Math.PI / 180;
+    let y;
+    if(type === 'sin') y = Math.sin(rad);
+    else if(type === 'cos') y = Math.cos(rad);
+    else if(type === 'tan') {
+      y = Math.tan(rad);
+      // Limit tan(y) for display
+      if (Math.abs(y) > 10) y = NaN;
+    }
+    if (!isNaN(y)) {
+      let px = 30 + (x/360)*(canvas.width-40);
+      let py = canvas.height/2 - y*(canvas.height/2-20);
+      if(x === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+  }
+  ctx.stroke();
+
+  // Label
+  ctx.fillStyle = "#007bff";
+  ctx.font = "14px Segoe UI";
+  ctx.fillText(type + "(x)", canvas.width-60, 30);
+  ctx.fillText("0°", 25, canvas.height/2+15);
+  ctx.fillText("180°", canvas.width/2-15, canvas.height/2+15);
+  ctx.fillText("360°", canvas.width-40, canvas.height/2+15);
+}
+
+function calcInverseTrig(type) {
+  const val = parseFloat(document.getElementById('trig-inv-value').value);
+  let deg = "";
+  if (isNaN(val)) {
+    deg = "Enter a value";
+  } else {
+    if(type === 'asin' && val >= -1 && val <= 1) deg = (Math.asin(val)*180/Math.PI).toFixed(2) + "°";
+    else if(type === 'acos' && val >= -1 && val <= 1) deg = (Math.acos(val)*180/Math.PI).toFixed(2) + "°";
+    else if(type === 'atan') deg = (Math.atan(val)*180/Math.PI).toFixed(2) + "°";
+    else deg = "Out of range";
+  }
+  document.getElementById('trig-inv-result').innerText = deg;
+}
+  </script>
+</body>
+</html>

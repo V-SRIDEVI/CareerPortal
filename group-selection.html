@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group Selection After Class 10</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Add Bootstrap CSS for navbar -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f4f8;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+      transition: background-color 0.5s, color 0.5s;
+    }
+    h2, h3 {
+      text-align: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+    .group-section, .quiz, .utility-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    button, .utility-btn, .back-home {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin: 5px;
+    }
+    button:hover, .utility-btn:hover, .back-home:hover {
+      background-color: #0056b3;
+    }
+    .top-controls, .mood-buttons {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .mood-btn {
+      font-size: 18px;
+      border-radius: 8px;
+      background: #f8f9fa;
+      border: 2px solid #007bff;
+      color: #007bff;
+    }
+    .mood-btn:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+    label[title]::after {
+      content: attr(title);
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-top: 5px;
+    }
+    #quiz-progress {
+      height: 25px;
+      background: #007bff;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    #feedbackModal {
+      display: none;
+      position: fixed;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px #000;
+      z-index: 9999;
+      border-radius: 10px;
+    }
+    @media print {
+      .top-controls, .utility-btn, button, .mood-buttons, #feedbackModal, .quiz-timer, .spin-section, .match-game { display: none !important; }
+      body, .group-section, .quiz { background: #fff !important; color: #000 !important; }
+    }
+    @media screen and (max-width: 600px) {
+      #roadmapOutput, .controls, .top-button {
+        padding: 15px;
+        font-size: 16px;
+      }
+      .controls { display: flex; flex-wrap: wrap; justify-content: center; }
+    }
+    body.dark {
+  background-color: #181a1b !important;
+  color: #e0e0e0 !important;
+}
+body.dark .group-section,
+body.dark .quiz,
+body.dark .utility-section {
+  background: #23272b !important;
+  color: #e0e0e0 !important;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+body.dark button,
+body.dark .utility-btn,
+body.dark .back-home {
+  background-color: #343a40 !important;
+  color: #fff !important;
+  border-color: #23272b !important;
+}
+body.dark button:hover,
+body.dark .utility-btn:hover,
+body.dark .back-home:hover {
+  background-color: #495057 !important;
+}
+body.dark .navbar,
+body.dark .navbar-brand,
+body.dark .navbar-nav .nav-link {
+  background-color: #23272b !important;
+  color: #e0e0e0 !important;
+}
+body.dark .navbar-nav .nav-link.active {
+  background-color: #343a40 !important;
+  color: #fff !important;
+}
+body.dark #quiz-progress {
+  background: #495057 !important;
+  color: #fff !important;
+}
+body.dark #feedbackModal {
+  background: #23272b !important;
+  color: #e0e0e0 !important;
+}
+body.dark .mood-btn {
+  background: #23272b !important;
+  color: #e0e0e0 !important;
+  border-color: #495057 !important;
+}
+body.dark .mood-btn:hover {
+  background: #495057 !important;
+  color: #fff !important;
+}
+/* Snackbar for theme change */
+#theme-snackbar {
+  visibility: hidden;
+  min-width: 200px;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px;
+  position: fixed;
+  z-index: 99999;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+#theme-snackbar.show {
+  visibility: visible;
+  opacity: 1;
+}
+  </style>
+</head>
+<body onload="restoreSelection()">
+  <!-- Bootstrap Navbar Start -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">🎓 Career Portal</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="roadmap.html">🗸️ Roadmap</a></li>
+          <li class="nav-item"><a class="nav-link" href="group-selection.html">🧽 Group Selection</a></li>
+          <li class="nav-item"><a class="nav-link" href="departments.html">🏩 Departments</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="feedback.html">📝 Feedback</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Bootstrap Navbar End -->
+
+  <div class="container">
+    <h2>🎓 Group Selection After Class 10</h2>
+
+    <div class="top-controls">
+      <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Home</a>
+      <button class="utility-btn" id="lang-btn" onclick="toggleLanguage()">🌐 Language</button>
+      <button class="utility-btn" onclick="startReading()">▶️ Read</button>
+      <button class="utility-btn" onclick="stopReading()">⏹️ Stop</button>
+      <button class="utility-btn" onclick="window.print()">🖨️ Print</button>
+      <button class="utility-btn" onclick="toggleDarkMode()">🌙 Theme</button>
+      <button class="utility-btn" onclick="spinGroup()">🎡 Spin a Group</button>
+    </div>
+
+    <div class="group-section">
+      <h3>🪀 Your Mood Today</h3>
+      <div class="mood-buttons">
+        <button class="mood-btn" onclick="setMood('😊 Happy')">😊 Happy</button>
+        <button class="mood-btn" onclick="setMood('😕 Confused')">😕 Confused</button>
+        <button class="mood-btn" onclick="setMood('🤓 Curious')">🤓 Curious</button>
+        <button class="mood-btn" onclick="setMood('😴 Tired')">😴 Tired</button>
+      </div>
+      <p id="mood-message" style="text-align:center;font-style:italic;"></p>
+    </div>
+
+    <div id="group-content" class="group-section"></div>
+
+    <div class="group-section quiz">
+      <h3>🧠 Career Group Quiz</h3>
+      <div style="background:#e9ecef;border-radius:4px;overflow:hidden;margin-bottom:10px;">
+        <div id="quiz-progress">0 / 5 answered</div>
+      </div>
+      <form id="quizForm">
+        <label title="Do you enjoy solving math and logic problems?">
+          1. Love logic puzzles or math challenges?
+          <br><input type="radio" name="q1" value="Science"> Yes
+          <input type="radio" name="q1" value="Arts"> No
+        </label><br><br>
+        <label title="Are you fascinated by biology and nature?">
+          2. Interested in animals or the human body?
+          <br><input type="radio" name="q2" value="Bio"> Yes
+          <input type="radio" name="q2" value="Commerce"> No
+        </label><br><br>
+        <label title="Do you have a passion for finance or markets?">
+          3. Curious about business, economy or money?
+          <br><input type="radio" name="q3" value="Commerce"> Yes
+          <input type="radio" name="q3" value="Others"> No
+        </label><br><br>
+        <label title="Love reading, writing or history?">
+          4. Do you enjoy literature or social sciences?
+          <br><input type="radio" name="q4" value="Arts"> Yes
+          <input type="radio" name="q4" value="Science"> No
+        </label><br><br>
+        <label title="Do you like understanding people or societies?">
+          5. Curious about minds and cultures?
+          <br><input type="radio" name="q5" value="Arts"> Yes
+          <input type="radio" name="q5" value="Commerce"> No
+        </label><br><br>
+        <button type="button" onclick="calculateResult()">🎯 Recommend My Group</button>
+      </form>
+      <p id="result" style="font-weight:bold;color:#0a5c2e;margin-top:15px;"></p>
+    </div>
+
+    <div class="group-section">
+  <h3>🎡 Random Group Generator</h3>
+
+  <!-- Action Buttons -->
+  <div style="text-align: center; margin-bottom: 15px;">
+    <button class="utility-btn" onclick="spinGroup()">🎡 Spin a Group</button>
+    <button class="utility-btn" onclick="spinGroupNow()">🎯 Spin Now (Quick)</button>
+    <button class="utility-btn" onclick="clearSpinResult()">🧹 Clear Result</button>
+    <button class="utility-btn" onclick="document.getElementById('group-details').scrollIntoView({ behavior: 'smooth' });">📖 View All Groups</button>
+    <button class="utility-btn" onclick="saveGroupResult()">💾 Save This Result</button>
+  </div>
+
+  <!-- Spin Result Display -->
+  <p id="spin-group-result" style="font-weight: bold; text-align: center; font-size: 18px;">
+    <!-- Random group result will appear here -->
+  </p>
+
+  <!-- Saved Result -->
+  <p id="saved-group" style="text-align: center; font-style: italic; color: #6c757d;">
+    <!-- Saved group will be shown here -->
+  </p>
+
+  <!-- Group Info Cards -->
+  <div id="group-details" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px;">
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 250px; background: #f8f9fa;">
+      <h4>Group 1: Science (Math + Bio)</h4>
+      <p>Ideal for students aiming for Engineering, Medicine or Research careers.</p>
+      <ul>
+        <li>Subjects: PCM + Biology</li>
+        <li>Careers: Doctor, Engineer, Scientist</li>
+      </ul>
+    </div>
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 250px; background: #f8f9fa;">
+      <h4>Group 2: Science (Bio Only)</h4>
+      <p>Best for Medicine, Nursing, or Biotechnology paths.</p>
+      <ul>
+        <li>Subjects: PCB</li>
+        <li>Careers: Doctor, Biotechnologist</li>
+      </ul>
+    </div>
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 250px; background: #f8f9fa;">
+      <h4>Group 3: Commerce</h4>
+      <p>For those interested in Business, Finance, or Economics.</p>
+      <ul>
+        <li>Subjects: Accounts, Economics, Business Studies</li>
+        <li>Careers: CA, Banker, Entrepreneur</li>
+      </ul>
+    </div>
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 250px; background: #f8f9fa;">
+      <h4>Group 4: Humanities / Arts</h4>
+      <p>Great for creative, social, or analytical careers.</p>
+      <ul>
+        <li>Subjects: History, Literature, Psychology</li>
+        <li>Careers: Teacher, Lawyer, Writer</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  const content = {
+    en: `
+        <div class="group-section">
+          <h3>📐 Group 1 - Science (Math + Biology)</h3>
+          <p>This group is ideal for students interested in engineering, medicine, or research. It includes:</p>
+          <ul><li>Physics, Chemistry, Biology, Mathematics</li><li>English, Language</li></ul>
+          <p><strong>Career paths:</strong> Doctor, Engineer, Scientist, Biotech Expert, Data Analyst</p>
+        </div>
+        <div class="group-section">
+          <h3>🔬 Group 2 - Science (Biology only)</h3>
+          <p>This group is for those who prefer Biology over Mathematics.</p>
+          <ul><li>Physics, Chemistry, Biology</li><li>English, Language</li></ul>
+          <p><strong>Career paths:</strong> Doctor, Dentist, Biotechnologist, Nurse, Lab Technician</p>
+        </div>
+        <div class="group-section">
+          <h3>💻 Group 3 - Science (Math + Computer Science)</h3>
+          <ul><li>Physics, Chemistry, Mathematics, Computer Science</li><li>English, Language</li></ul>
+          <p><strong>Career paths:</strong> Software Engineer, Data Scientist, IT Specialist, AI/ML Expert</p>
+        </div>
+        <div class="group-section">
+          <h3>🧪 Group 4 - Science (Biology + Computer Science)</h3>
+          <ul><li>Physics, Chemistry, Biology, Computer Science</li><li>English, Language</li></ul>
+          <p><strong>Career paths:</strong> Bioinformatician, Genetic Analyst, Medical Coder</p>
+        </div>
+        <div class="group-section">
+          <h3>📊 Group 5 - Commerce</h3>
+          <ul><li>Accountancy, Economics, Business Studies, Maths/IT</li><li>English, Language</li></ul>
+          <p><strong>Career paths:</strong> CA, B.Com, BBA, Banking, Marketing</p>
+        </div>
+        <div class="group-section">
+          <h3>🎨 Group 6 - Humanities / Arts</h3>
+          <ul><li>History, Geography, Political Science, Sociology, Psychology</li><li>English, Language</li></ul>
+          <p><strong>Career paths:</strong> Law, Journalism, Civil Services, Teaching</p>
+        </div>
+      `,
+      ta: `
+        <div class="group-section">
+          <h3>📐 குழு 1 - அறிவியல் (கணிதம் + உயிரியல்)</h3>
+          <p>இந்தக் குழு பொறியியல், மருத்துவம் அல்லது ஆராய்ச்சி ஆர்வமுள்ள மாணவர்களுக்கு சிறந்தது.</p>
+          <ul><li>இயற்பியல், வேதியியல், உயிரியல், கணிதம்</li><li>ஆங்கிலம், தமிழ்</li></ul>
+          <p><strong>தொழில் வாய்ப்புகள்:</strong> மருத்துவர், பொறியாளர், விஞ்ஞானி, உயிரி நுட்ப நிபுணர்</p>
+        </div>
+        <div class="group-section">
+          <h3>🔬 குழு 2 - அறிவியல் (உயிரியல் மட்டும்)</h3>
+          <ul><li>இயற்பியல், வேதியியல், உயிரியல்</li><li>ஆங்கிலம், தமிழ்</li></ul>
+          <p><strong>தொழில் வாய்ப்புகள்:</strong> மருத்துவர், நர்ச், ஆய்வக நிபுணர்</p>
+        </div>
+        <div class="group-section">
+          <h3>💻 குழு 3 - அறிவியல் (கணிதம் + கணினி)</h3>
+          <ul><li>இயற்பியல், வேதியியல், கணிதம், கணினி அறிவியல்</li><li>ஆங்கிலம், தமிழ்</li></ul>
+          <p><strong>தொழில் வாய்ப்புகள்:</strong> மென்பொருள் பொறியாளர், தரவுப் பகுப்பாளர்</p>
+        </div>
+        <div class="group-section">
+          <h3>📊 குழு 4 - வாணிகம்</h3>
+          <ul><li>கணக்கு, பொருளாதாரம், வணிகக் கல்வி, கணினி</li><li>ஆங்கிலம், தமிழ்</li></ul>
+          <p><strong>தொழில் வாய்ப்புகள்:</strong> கணக்காய்வாளர், வங்கி, வணிகம்</p>
+        </div>
+        <div class="group-section">
+          <h3>🎨 குழு 5 - கலை / மனிதவியல்</h3>
+          <ul><li>வரலாறு, வரைபடவியல், அரசியல் அறிவியல், உளவியல்</li><li>ஆங்கிலம், தமிழ்</li></ul>
+          <p><strong>தொழில் வாய்ப்புகள்:</strong> சட்டம், பத்திரிகையாளர், ஆசிரியர்</p>
+        </div>
+      `,
+      hi: `
+        <div class="group-section">
+          <h3>📐 समूह 1 - विज्ञान (गणित + जीवविज्ञान)</h3>
+          <p>यह समूह इंजीनियरिंग, चिकित्सा या अनुसंधान में रुचि रखने वालों के लिए है।</p>
+          <ul><li>भौतिकी, रसायन, जीवविज्ञान, गणित</li><li>अंग्रेजी, हिंदी</li></ul>
+          <p><strong>करियर विकल्प:</strong> डॉक्टर, इंजीनियर, वैज्ञानिक</p>
+        </div>
+        <div class="group-section">
+          <h3>🔬 समूह 2 - विज्ञान (केवल जीवविज्ञान)</h3>
+          <ul><li>भौतिकी, रसायन, जीवविज्ञान</li><li>अंग्रेजी, हिंदी</li></ul>
+          <p><strong>करियर विकल्प:</strong> डॉक्टर, नर्स, लैब तकनीशियन</p>
+        </div>
+        <div class="group-section">
+          <h3>💻 समूह 3 - विज्ञान (गणित + कंप्यूटर)</h3>
+          <ul><li>भौतिकी, रसायन, गणित, कंप्यूटर</li><li>अंग्रेजी, हिंदी</li></ul>
+          <p><strong>करियर विकल्प:</strong> सॉफ्टवेयर इंजीनियर, डेटा साइंटिस्ट</p>
+        </div>
+        <div class="group-section">
+          <h3>📊 समूह 4 - वाणिज्य</h3>
+          <ul><li>लेखा, अर्थशास्त्र, व्यवसाय अध्ययन</li><li>अंग्रेजी, हिंदी</li></ul>
+          <p><strong>करियर विकल्प:</strong> सीए, बैंकिंग, वित्त</p>
+        </div>
+        <div class="group-section">
+          <h3>🎨 समूह 5 - मानविकी</h3>
+          <ul><li>इतिहास, भूगोल, राजनीति विज्ञान, समाजशास्त्र</li><li>अंग्रेजी, हिंदी</li></ul>
+          <p><strong>करियर विकल्प:</strong> कानून, पत्रकारिता, शिक्षक</p>
+        </div>
+      `
+    };
+
+
+    let currentLang = "en";
+    let synth = window.speechSynthesis;
+    let utterance;
+
+    function toggleLanguage() {
+      currentLang = currentLang === "en" ? "ta" : currentLang === "ta" ? "hi" : "en";
+      document.getElementById("lang-btn").innerText = `🌐 Language: ${currentLang === "en" ? "English" : currentLang === "ta" ? "Tamil" : "Hindi"}`;
+      document.getElementById("group-content").innerHTML = content[currentLang] || content.en;
+    }
+
+    function calculateResult() {
+      const answers = document.querySelectorAll('input[type="radio"]:checked');
+      const count = {};
+      answers.forEach(ans => {
+        const val = ans.value;
+        count[val] = (count[val] || 0) + 1;
+      });
+      let recommended = '', max = 0;
+      for (let key in count) {
+        if (count[key] > max) {
+          max = count[key];
+          recommended = key;
+        }
+      }
+      let resultText = '';
+      switch(recommended) {
+        case 'Science': resultText = '✅ You should consider Group 1 - Science (Math + Bio)'; break;
+        case 'Bio': resultText = '✅ You may enjoy Group 2 - Biology Stream'; break;
+        case 'Commerce': resultText = '✅ Commerce stream might suit your interests!'; break;
+        case 'Arts': resultText = '✅ Arts/Humanities could be your path.'; break;
+        default: resultText = '❗ Please complete all questions to get a suggestion.';
+      }
+      document.getElementById('result').innerHTML = resultText;
+      document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updateProgress() {
+      const total = 5;
+      const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+      const bar = document.getElementById("quiz-progress");
+      const percent = (answered / total) * 100;
+      bar.style.width = percent + "%";
+      bar.innerText = `${answered} / ${total} answered`;
+    }
+
+    function startReading() {
+      const synth = window.speechSynthesis;
+      const text = document.getElementById("group-content").innerText;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = currentLang === 'ta' ? 'ta-IN' : 'en-US';
+      synth.speak(utterance);
+    }
+
+    function stopReading() {
+      window.speechSynthesis.cancel();
+    }
+
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+
+      // Update navbar classes for Bootstrap
+      const navbar = document.querySelector('.navbar');
+      if (navbar) {
+        if (isDark) {
+          navbar.classList.remove('bg-primary');
+          navbar.classList.add('bg-dark');
+        } else {
+          navbar.classList.remove('bg-dark');
+          navbar.classList.add('bg-primary');
+        }
+      }
+
+      // Show snackbar
+      showThemeSnackbar(isDark ? "🌙 Dark theme enabled" : "☀️ Light theme enabled");
+    }
+
+    function showThemeSnackbar(msg) {
+      const sb = document.getElementById("theme-snackbar");
+      sb.innerText = msg;
+      sb.className = "show";
+      setTimeout(() => { sb.className = sb.className.replace("show", ""); }, 2000);
+    }
+
+    function setMood(mood) {
+      const messages = {
+        "😊 Happy": "Great! Keep that vibe going!",
+        "😕 Confused": "No problem! Let us help guide you.",
+        "🤓 Curious": "Perfect time to explore your options!",
+        "😴 Tired": "Relax and take your time."
+      };
+      document.getElementById("mood-message").innerText = `You feel ${mood} — ${messages[mood]}`;
+    }
+
+    function spinGroup() {
+      const groups = [
+        "Group 1 - Science (Math + Bio)",
+        "Group 2 - Biology Only",
+        "Group 3 - Commerce",
+        "Group 4 - Arts & Humanities"
+      ];
+      const choice = groups[Math.floor(Math.random() * groups.length)];
+      const resultElem = document.getElementById("spin-group-result");
+      resultElem.innerText = `🔄 Random Pick: ${choice}`;
+      // Highlight and scroll into view
+      resultElem.style.background = "#ffe066";
+      resultElem.style.transition = "background 0.6s";
+      resultElem.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        resultElem.style.background = "";
+      }, 600);
+    }
+
+    function saveGroupResult() {
+      const result = document.getElementById("spin-group-result").innerText;
+      if (result) {
+        document.getElementById("saved-group").innerText = `📌 Saved: ${result}`;
+      } else {
+        alert("Please spin a group first before saving.");
+      }
+    }
+
+    function clearSpinResult() {
+      document.getElementById("spin-group-result").innerText = "";
+      document.getElementById("saved-group").innerText = "";
+    }
+
+    function spinGroupNow() {
+      const groups = [
+        "Group 1: Science (Math + Bio)",
+        "Group 2: Science (Bio Only)",
+        "Group 3: Commerce",
+        "Group 4: Humanities / Arts"
+      ];
+      const result = groups[Math.floor(Math.random() * groups.length)];
+      document.getElementById("spin-group-result").innerText = `🎯 You got: ${result}`;
+    }
+
+    // Single onload for all startup logic
+    window.onload = () => {
+      document.getElementById("group-content").innerHTML = content[currentLang];
+      // Restore theme
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+          navbar.classList.remove('bg-primary');
+          navbar.classList.add('bg-dark');
+        }
+      }
+      // Set language button label
+      document.getElementById("lang-btn").innerText = `🌐 Language: English`;
+      // Add event listeners for quiz progress
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.addEventListener('change', updateProgress));
+      updateProgress();
+    };
+  </script>
+
+  <div id="theme-snackbar"></div>
+</body>
+</html>

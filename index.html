@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government School - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://lh3.googleusercontent.com/gps-cs-s/AC9h4noZUb-tnzChP82QtJpYiPt6BKLPkPszImdJ1h0ebmZn3LHhpNLw39KHY_7lEcDssk1GLu6xFDw9CVGtFMW8CKk9Xf263Xb1EFQ-nuqZRTw9hqvve4ag7mFDs4IjgplFiCS1yBkd=s1360-w1360-h1020-rw') no-repeat center center fixed;
+      background-size: cover;
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #ff0;
+    }
+    section {
+      background: rgba(255, 255, 255, 0.9);
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 1000px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease-in;
+    }
+    h2 {
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 5px;
+      text-shadow: 1px 1px #aaa;
+    }
+    img {
+      border-radius: 10px;
+      margin: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li::before {
+      content: "✔️ ";
+    }
+    footer {
+      background: linear-gradient(to right, #003366, #006699);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #006699;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    .btn-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: #006699;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .btn-link:hover {
+      background: #004466;
+    }
+    .photo-gallery img {
+      width: 300px;
+      height: auto;
+    }
+    body.dark {
+      background: #181a1b !important;
+      color: #f1f1f1 !important;
+    }
+    body.dark section {
+      background: rgba(30, 32, 34, 0.95) !important;
+      color: #f1f1f1 !important;
+    }
+    body.dark header, body.dark footer {
+      background: #222 !important;
+      color: #fff !important;
+    }
+    body.dark nav a {
+      color: #ffd700 !important;
+    }
+    body.dark .btn-link {
+      background: #333 !important;
+      color: #ffd700 !important;
+    }
+    body.dark .btn-link:hover {
+      background: #444 !important;
+    }
+    body.dark input, body.dark textarea {
+      background: #222 !important;
+      color: #fff !important;
+      border: 1px solid #444 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <marquee behavior="scroll" direction="left" style="background:#ffcc00; color:#000; padding:10px;">
+    🎉 Admissions Open for 2025-2026 | Join our mission to educate, empower, and inspire!
+  </marquee>
+
+  <header>
+    <h1>🏫 Government School</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="group-selection.html">Group Selection</a>
+      <a href="departments.html">Departments</a>
+      <a href="feedback.html">Feedback</a>
+    </nav>
+    <button id="theme-toggle" class="btn-link" onclick="changeTheme()">🌙 Toggle Theme</button>
+  </header>
+
+  <section>
+    <h2>🏫 About Our School</h2>
+    <p><strong>Government Higher Secondary School – MGR Nagar</strong><br>
+    📍 26P3+952, Anna Main Road, MGR Nagar, K.K. Nagar, Chennai – 600078<br>
+    📧 Email: ghssmgrchennai078@gmail.com<br>
+    📞 Contact: 044 – 24714853</p>
+
+    <h3>✨ School Overview</h3>
+    <p>Established in 1980, Government Higher Secondary School, MGR Nagar, is a proud government-run institution located in the heart of K.K. Nagar, Chennai. It offers quality education from Class 6 to Class 12, and serves as a cornerstone of learning for the students of MGR Nagar and surrounding areas.</p>
+    <p>This Tamil-medium, co-educational school is part of the Greater Chennai Corporation’s educational initiative, ensuring free and inclusive education for all children.</p>
+
+    <h3>📘 Academics & Curriculum</h3>
+    <p>Our school follows the curriculum prescribed by the Tamil Nadu State Board, covering a wide range of subjects in Science, Commerce, Arts, and Vocational streams. With a dedicated team of 36 qualified teachers, we ensure academic excellence and personal growth for nearly 900 students.</p>
+
+    <h3>🏢 Infrastructure & Facilities</h3>
+    <ul>
+      <li>🏫 Spacious Classrooms: Well-lit and ventilated teaching spaces</li>
+      <li>💻 Computer Lab: Equipped with 11 functional computers for digital literacy</li>
+      <li>📚 Library: Over 1,500 books to encourage reading habits</li>
+      <li>⚽ Playground: For sports and physical education</li>
+      <li>🍛 Mid-Day Meals: Nutritious meals served daily</li>
+      <li>🚻 Separate Toilets: For boys and girls</li>
+      <li>💧 Drinking Water & Sanitation: Safe and accessible</li>
+    </ul>
+    <p>We also have reliable electricity, secure boundary walls, and maintain a clean and green campus.</p>
+
+    <h3>🌱 Our Mission</h3>
+    <p>Our mission is to empower students through quality education and character-building, helping them grow into responsible citizens. We are committed to nurturing each student’s potential, no matter their background.</p>
+
+    <h3>🎯 Why Choose GHSS MGR Nagar?</h3>
+    <ul>
+      <li>✅ Free government education with experienced faculty</li>
+      <li>✅ Strong academic foundation and career guidance</li>
+      <li>✅ Focus on digital skills and moral values</li>
+      <li>✅ Inclusive, respectful, and nurturing learning environment</li>
+      <li>✅ Contribution to literacy and development in Chennai’s urban community</li>
+    </ul>
+
+    <p>We welcome students, parents, and well-wishers to become part of our journey.<br>
+    <strong>Government Higher Secondary School, MGR Nagar – Building the Future with Knowledge and Values.</strong></p>
+
+    <a class="btn-link" href="roadmap.html">Explore Roadmaps</a>
+  </section>
+
+  <section>
+    <h2>🏛️ History</h2>
+    <p>Our school was established in 1985 with the mission to provide affordable and quality education to rural students.</p>
+  </section>
+
+  <section>
+    <h2>💡 School Facilities</h2>
+    <ul>
+      <li>💻 Computer Lab</li>
+      <li>🔬 Atal Tinkering Lab</li>
+      <li>📚 Library</li>
+      <li>🎨 Art & Craft Room</li>
+      <li>☁️ Cloud Computing</li>
+      <li>⚛️ Physics Lab</li>
+      <li>🧪 Chemistry Lab</li>
+      <li>🏃 Sports Facilities</li>
+      <li>🍽️ Mid-Day Meal Scheme</li>
+      <li>🚻 Separate Toilets</li>
+      <li>💧 Drinking Water</li>
+      <li>🌳 Clean Campus</li>
+      <li>📺 Smart Classrooms</li>
+      <li>📅 Regular Parent-Teacher Meetings</li>
+    </ul>
+  </section>
+
+  <section class="photo-gallery">
+    <h2>📸 Photo Gallery</h2>
+    <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrwpBLg4vcvhGeRn-58LI5CI7WcdBsOtT69YsyoyX_BMTITWQKor2kEIl4NLxVVuhlvm7Yl5Dl56itTDF7c8XiNMiWieJQ3vY8ymebh3cS4qipXdsMcwuzB3XT2__kb2jyGuTJ1=w141-h101-n-k-no-nu" alt="Annual Day Celebration">
+    <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4np14EnsN0w6oKO-if5YSrH_5JGF9FCURZyGCf8gqQYAujKxTg1Ig_FtbTQk1ik8imAK_qpVfC2ItfTCZJ3bIRNhjyjJEwS6QtwYUjYsIoKfKO2_IBLGL8ShMNfDhdE2iy1Yh8Q=s1360-w1360-h1020-rw" alt="Science Exhibition">
+    <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrnaKsyGsFvBFpXtCS7sZAWPFahAOLk8344ZLuIKbhm9j81x28INGDasuPNVFMr7yHEWbij1ZezRNMza1EdRxlY2pCG5RammEMq1bFwbn1YtwfWgxUg287TUbsNA85ZgyMgGuB8=s1360-w1360-h1020-rw" alt="Classroom Activity Day">
+    <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4npouRGt5O6L4Fd7AZQ38vZtxXriNlkUdO7RS6xATprFuRMewoBpEkuRO8iFPSdiZ5BroMPJtoUHfb9oTIkian-okqRb-3wU4Sn_fSUzgkFn2wUC51GZPC9Qs2jnFHmGPG-5MNfMGQ=s1360-w1360-h1020-rw" alt="Clean Campus Drive">
+    <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4noNQOoxpo-1fm0YEuiP3QiriHpFsSBfuDwqaPJxpGUNz1UhD2Lo8dAITYIHX3xfg4YxDfXoNsjPFeWMUFwXwykcLxiCnl8UciZ06K713uIudUiNWGN8D8DP-__fceFfI_Cbz2pLeg=s1360-w1360-h1020-rw" alt="Outdoor Area">
+    <img src="https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=C4W7JDUGG7F5RYLpNEZ6BQ&cb_client=lu.gallery.gps&w=160&h=106&yaw=187.23167&pitch=0&thumbfov=100" alt="360° View of School">
+  </section>
+
+  <section>
+    <h2>🎤 Testimonials</h2>
+    <blockquote>"The teachers are so kind and helpful!" – Class 10 Student</blockquote>
+    <blockquote>"My child loves going to school every day!" – Parent</blockquote>
+  </section>
+
+  <section>
+    <h2>📍 Visit Us</h2>
+    <iframe src="https://www.google.com/maps?q=GOVERNMENT+HIGHER+SECONDARY+SCHOOL,+MGR+NAGAR,+CHENNAI+-+78&output=embed" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+
+  <section>
+  <h2>📧 Subscribe to Our Newsletter</h2>
+  <form id="newsletterForm">
+    <input type="email" id="emailInput" placeholder="Enter your email" required />
+    <br>
+    <button type="submit">Subscribe</button>
+    <button type="button" onclick="unsubscribe()">Unsubscribe</button>
+    <p id="message"></p>
+    <p id="subscriberCount"></p>
+  </form>
+
+  <div class="admin-buttons">
+    <input type="text" id="searchInput" onkeyup="filterSubscribers()" placeholder="🔍 Search email...">
+    <button onclick="viewSubscribers()">👀 View Subscribers</button>
+    <button onclick="downloadSubscribers()">⬇️ Download List</button>
+    <button onclick="clearSubscribers()">🧹 Clear All</button>
+    <button onclick="copyToClipboard()">📋 Copy Emails</button>
+    <button onclick="sortSubscribers()">🔽 Sort Subscribers A-Z</button>
+    <button onclick="showRandomSubscriber()">🎲 Pick a Random Subscriber</button>
+    <button onclick="exportToExcel()">📄 Export to Excel</button>
+    <button onclick="printSubscribers()">🖨️ Print PDF</button>
+  </div>
+  <ul id="filteredList"></ul>
+  <div id="pagination"></div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <p id="modalText"></p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  const SUBSCRIPTION_LIMIT = 5;
+  const PAGE_SIZE = 5;
+
+  document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const emailInput = document.getElementById('emailInput');
+    const email = emailInput.value.trim().toLowerCase();
+    const message = document.getElementById('message');
+
+    emailInput.classList.remove("invalid");
+
+    if (!validateEmail(email)) {
+      message.textContent = "❌ Please enter a valid email address.";
+      message.style.color = "red";
+      emailInput.classList.add("invalid");
+      return;
+    }
+
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    if (subscribers.length >= SUBSCRIPTION_LIMIT) {
+      showModal(`🚫 Subscription limit of ${SUBSCRIPTION_LIMIT} reached on this device.`);
+      return;
+    }
+
+    if (subscribers.includes(email)) {
+      message.textContent = "⚠️ You are already subscribed!";
+      message.style.color = "orange";
+    } else {
+      subscribers.push(email);
+      localStorage.setItem("subscribers", JSON.stringify(subscribers));
+      showModal(`✅ Thank you for subscribing!<br><strong>${email}</strong> will now receive updates.`);
+      message.textContent = "✅ Subscription successful!";
+      message.style.color = "green";
+      emailInput.value = "";
+      updateSubscriberCount();
+    }
+  });
+
+  function unsubscribe() {
+    const email = document.getElementById('emailInput').value.trim().toLowerCase();
+    const message = document.getElementById('message');
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+
+    if (subscribers.includes(email)) {
+      subscribers = subscribers.filter(e => e !== email);
+      localStorage.setItem("subscribers", JSON.stringify(subscribers));
+      showModal(`🗑️ <strong>${email}</strong> has been unsubscribed.`);
+      message.textContent = "You have been unsubscribed.";
+      message.style.color = "blue";
+      updateSubscriberCount();
+    } else {
+      message.textContent = "⚠️ This email is not in our list.";
+      message.style.color = "orange";
+    }
+    document.getElementById('emailInput').value = "";
+  }
+
+  function showModal(text) {
+    document.getElementById("modalText").innerHTML = text;
+    document.getElementById("modal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+
+  function viewSubscribers(page = 1) {
+    const list = document.getElementById("filteredList");
+    const pagination = document.getElementById("pagination");
+    list.innerHTML = "";
+    pagination.innerHTML = "";
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    const totalPages = Math.ceil(subscribers.length / PAGE_SIZE);
+    const start = (page - 1) * PAGE_SIZE;
+    const paginated = subscribers.slice(start, start + PAGE_SIZE);
+
+    if (subscribers.length === 0) {
+      list.innerHTML = "<li>No subscribers found.</li>";
+      return;
+    }
+
+    paginated.forEach(sub => {
+      const li = document.createElement("li");
+      li.textContent = sub;
+      list.appendChild(li);
+    });
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      btn.onclick = () => viewSubscribers(i);
+      pagination.appendChild(btn);
+    }
+  }
+
+  function filterSubscribers() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    const list = document.getElementById("filteredList");
+    const filtered = subscribers.filter(email => email.includes(query));
+
+    list.innerHTML = "";
+    if (filtered.length === 0) {
+      list.innerHTML = "<li>No matching subscribers.</li>";
+      return;
+    }
+
+    filtered.forEach(sub => {
+      const li = document.createElement("li");
+      li.textContent = sub;
+      list.appendChild(li);
+    });
+  }
+
+  function downloadSubscribers() {
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    if (subscribers.length === 0) {
+      showModal("No subscribers to download.");
+      return;
+    }
+
+    const blob = new Blob([subscribers.join("\n")], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "subscribers.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function exportToExcel() {
+    const subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    if (subscribers.length === 0) return showModal("No data to export.");
+    const table = document.createElement("table");
+    subscribers.forEach(email => {
+      const row = table.insertRow();
+      row.insertCell().textContent = email;
+    });
+    const html = table.outerHTML;
+    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "subscribers.xls";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function printSubscribers() {
+    const subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    const win = window.open();
+    win.document.write("<h1>Subscriber List</h1><ul>");
+    subscribers.forEach(e => win.document.write(`<li>${e}</li>`));
+    win.document.write("</ul>");
+    win.print();
+    win.close();
+  }
+
+  function clearSubscribers() {
+    if (confirm("⚠️ Are you sure you want to clear all subscriptions?")) {
+      localStorage.removeItem("subscribers");
+      showModal("All subscriber data has been cleared.");
+      updateSubscriberCount();
+    }
+  }
+
+  function copyToClipboard() {
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    if (subscribers.length === 0) {
+      showModal("No subscribers to copy.");
+      return;
+    }
+    navigator.clipboard.writeText(subscribers.join("\n"))
+      .then(() => showModal("📋 Subscriber list copied to clipboard!"))
+      .catch(() => showModal("⚠️ Failed to copy to clipboard."));
+  }
+
+  function sortSubscribers() {
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    if (subscribers.length === 0) {
+      showModal("No subscribers to sort.");
+      return;
+    }
+    subscribers.sort();
+    localStorage.setItem("subscribers", JSON.stringify(subscribers));
+    showModal("🔽 Subscribers sorted alphabetically.");
+    updateSubscriberCount();
+  }
+
+  function showRandomSubscriber() {
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    if (subscribers.length === 0) {
+      showModal("No subscribers to pick from.");
+      return;
+    }
+    const random = subscribers[Math.floor(Math.random() * subscribers.length)];
+    showModal(`🎉 Randomly Selected Subscriber:<br><strong>${random}</strong>`);
+  }
+
+  function updateSubscriberCount() {
+    let subscribers = JSON.parse(localStorage.getItem("subscribers")) || [];
+    document.getElementById("subscriberCount").textContent = `Total Subscribers: ${subscribers.length}`;
+  }
+
+  function validateEmail(email) {
+    const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  function changeTheme() {
+    document.body.classList.toggle('dark');
+    // Save preference
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    // Optionally update button icon/text
+    document.getElementById('theme-toggle').innerText = document.body.classList.contains('dark') ? "☀️ Light Mode" : "🌙 Dark Mode";
+  }
+
+  // On page load, restore theme
+  window.onload = function() {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      document.getElementById('theme-toggle').innerText = "☀️ Light Mode";
+    } else {
+      document.body.classList.remove('dark');
+      document.getElementById('theme-toggle').innerText = "🌙 Dark Mode";
+    }
+    updateSubscriberCount();
+  };
+</script>
